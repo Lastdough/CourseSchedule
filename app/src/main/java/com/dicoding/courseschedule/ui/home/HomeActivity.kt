@@ -7,7 +7,9 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.dicoding.courseschedule.R
+import androidx.lifecycle.Observer
 import com.dicoding.courseschedule.data.Course
 import com.dicoding.courseschedule.ui.setting.SettingsActivity
 import com.dicoding.courseschedule.util.DayName
@@ -26,17 +28,27 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
         supportActionBar?.title = resources.getString(R.string.today_schedule)
 
+        val factory = HomeViewModelFactory.createFactory(this)
+        viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+
+        viewModel.getNearestSchedule(queryType).observe(this, Observer(this::showTodaySchedule))
     }
 
     private fun showTodaySchedule(course: Course?) {
         checkQueryType(course)
+        val cardHome = findViewById<CardHomeView>(R.id.view_home)
         course?.apply {
             val dayName = DayName.getByNumber(day)
             val time = String.format(getString(R.string.time_format), dayName, startTime, endTime)
             val remainingTime = timeDifference(day, startTime)
 
-            val cardHome = findViewById<CardHomeView>(R.id.view_home)
-
+            cardHome.apply {
+                setCourseName(courseName)
+                setLecturer(lecturer)
+                setNote(note)
+                setRemainingTime(remainingTime)
+                setTime(time)
+            }
         }
 
         findViewById<TextView>(R.id.tv_empty_home).visibility =
