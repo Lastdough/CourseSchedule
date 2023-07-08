@@ -52,5 +52,7 @@
     <string name="empty_home_schedule">There are no more schedules today</string>
     <string name="empty_list_message">No courses added yet</string>
     <string name="input_empty_message">Course name and time cannot be empty</string>
+    <string name="until">until</string>
+    <string name="success_message">Course successfully added</string>
 
 </resources>
