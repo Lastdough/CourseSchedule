@@ -6,6 +6,7 @@ const val NOTIFICATION_CHANNEL_NAME = "Course Channel"
 const val NOTIFICATION_CHANNEL_ID = "notify-schedule"
 const val NOTIFICATION_ID = 32
 const val ID_REPEATING = 101
+const val PERMISSION_REQUEST_CODE = 111
 
 const val START_PICKER = "startPicker"
 const val END_PICKER = "endPicker"
